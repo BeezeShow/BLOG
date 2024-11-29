@@ -1,0 +1,59 @@
+.article {
+  width: 80%;
+  min-height: 10vh;
+  margin: auto;
+  margin-top: 20px;
+  position: relative;
+  background-color: white;
+  box-shadow: 6px 5px 8px 0px rgba(34, 60, 80, 0.2);
+  padding: 10px;
+  overflow-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+img {
+  width: 55px;
+  height: 55px;
+  border-radius: 40px;
+}
+
+.user_info {
+  position: absolute;
+  right: 10px;
+  top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tag {
+  display: block;
+  max-width: 800px;
+  width: fit-content;
+  padding: 0px 5px 1px 5px;
+  overflow-wrap: break-word;
+  border: solid gray 1px;
+  margin-right: 10px;
+  color: gray;
+  border-radius: 5px;
+}
+
+.tags {
+  display: flex;
+  margin: 10px 0px 10px 0px;
+}
+
+.title {
+  font-size: 19px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 400;
+  max-width: 800px;
+}
+
+.title:hover {
+  color: blue;
+}

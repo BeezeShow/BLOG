@@ -1,0 +1,16 @@
+.article_id {
+  height: 500px !important;
+  display: block !important;
+  min-height: 50vh !important;
+  height: max-content !important;
+}
+
+.article_body {
+  margin-top: 30px;
+}
+
+.title_id {
+  color: #4c93fd;
+  cursor: auto;
+  margin: 0px;
+}

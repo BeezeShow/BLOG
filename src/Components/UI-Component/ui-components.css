@@ -1,0 +1,14 @@
+.pagination {
+  display: flex;
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  justify-content: center;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
