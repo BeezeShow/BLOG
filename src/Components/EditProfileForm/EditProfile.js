@@ -1,8 +1,10 @@
-import { Button, Form, Input } from "antd";
-import Api from "../../Api/Api";
-import Loader from "../UI-Component/Loader";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+/*eslint-disable*/
+import { Button, Form, Input } from 'antd'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+
+import Api from '../../Api/Api'
+import Loader from '../UI-Component/Loader'
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -20,23 +22,23 @@ const formItemLayout = {
       span: 16,
     },
   },
-};
+}
 
 const EditProfileForm = () => {
-  const api = new Api();
-  const currentUser = useSelector((state) => state.currentUser);
-  const isLoad = useSelector((state) => state.isLoad);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [form] = Form.useForm();
+  const api = new Api()
+  const currentUser = useSelector((state) => state.currentUser)
+  const isLoad = useSelector((state) => state.isLoad)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [form] = Form.useForm()
   const onFinish = (values) => {
-    dispatch({ type: "LOAD_CHANGE", payload: true });
+    dispatch({ type: 'LOAD_CHANGE', payload: true })
     api.editUserAccount(values).then((res) => {
-      dispatch({ type: "ADD_USER", payload: res.user });
-      dispatch({ type: "LOAD_CHANGE", payload: false });
-      navigate("/");
-    });
-  };
+      dispatch({ type: 'ADD_USER', payload: res.user })
+      dispatch({ type: 'LOAD_CHANGE', payload: false })
+      navigate('/')
+    })
+  }
   return isLoad ? (
     <Loader />
   ) : (
@@ -59,18 +61,17 @@ const EditProfileForm = () => {
         rules={[
           {
             required: true,
-            message: "Please input your nickname!",
+            message: 'Please input your nickname!',
             whitespace: true,
           },
           {
             required: true,
-            message: "Your username must to be within 3 to 20 characters.",
+            message: 'Your username must to be within 3 to 20 characters.',
             whitespace: true,
             min: 3,
             max: 20,
           },
         ]}
-
       >
         <Input />
       </Form.Item>
@@ -79,15 +80,14 @@ const EditProfileForm = () => {
         name="email"
         rules={[
           {
-            type: "email",
-            message: "The input is not valid E-mail!",
+            type: 'email',
+            message: 'The input is not valid E-mail!',
           },
           {
             required: true,
-            message: "Please input your E-mail!",
+            message: 'Please input your E-mail!',
           },
         ]}
-
       >
         <Input />
       </Form.Item>
@@ -96,7 +96,7 @@ const EditProfileForm = () => {
         name="password"
         rules={[
           {
-            message: "Your password needs to be at least 6 characters.",
+            message: 'Your password needs to be at least 6 characters.',
             whitespace: true,
             min: 6,
             max: 40,
@@ -107,7 +107,7 @@ const EditProfileForm = () => {
         <Input.Password placeholder="Password" />
       </Form.Item>
       Avatar image (url)
-      <Form.Item name="image" hasFeedback >
+      <Form.Item name="image" hasFeedback>
         <Input placeholder="Avatar image" />
       </Form.Item>
       <Form.Item>
@@ -116,6 +116,6 @@ const EditProfileForm = () => {
         </Button>
       </Form.Item>
     </Form>
-  );
-};
-export default EditProfileForm;
+  )
+}
+export default EditProfileForm

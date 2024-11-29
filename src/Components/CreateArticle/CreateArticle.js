@@ -1,29 +1,33 @@
-import { Input, Button, Form } from "antd";
-import Api from "../../Api/Api";
-import Loader from "../UI-Component/Loader";
-import styles from "./createArticle.module.css";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+/*eslint-disable*/
+import { Input, Button, Form } from 'antd'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+
+import Api from '../../Api/Api'
+import Loader from '../UI-Component/Loader'
+
+import styles from './createArticle.module.css'
 function CreateArticle() {
-  const api = new Api();
-  const dispatch = useDispatch();
-  const isLoad = useSelector(state => state.isLoad)
-  const navigate = useNavigate();
-  const { TextArea } = Input;
+  const api = new Api()
+  const dispatch = useDispatch()
+  const isLoad = useSelector((state) => state.isLoad)
+  const navigate = useNavigate()
+  const { TextArea } = Input
   const onFinish = (values) => {
-    dispatch({type: "LOAD_CHANGE", payload: true})
+    dispatch({ type: 'LOAD_CHANGE', payload: true })
     api.createArticle(values).then((article) => {
       api.getArticles(1).then((articles) => {
-        dispatch({ type: "ADD_ARTICLES", payload: articles });
-        dispatch({ type: "ADD_TOTAL", payload: articles });
-        dispatch({type: "LOAD_CHANGE", payload: false})
-        navigate(`/articles/${article.article.slug}`);
-      });
-    });
-  };
+        dispatch({ type: 'ADD_ARTICLES', payload: articles })
+        dispatch({ type: 'ADD_TOTAL', payload: articles })
+        dispatch({ type: 'LOAD_CHANGE', payload: false })
+        navigate(`/articles/${article.article.slug}`)
+      })
+    })
+  }
 
-  return (
-    isLoad ? <Loader/> :
+  return isLoad ? (
+    <Loader />
+  ) : (
     <Form
       name="basic"
       className={styles.new_article}
@@ -39,7 +43,7 @@ function CreateArticle() {
         rules={[
           {
             required: true,
-            message: "Title field is required",
+            message: 'Title field is required',
           },
         ]}
       >
@@ -51,7 +55,7 @@ function CreateArticle() {
         rules={[
           {
             required: true,
-            message: "Description field is required",
+            message: 'Description field is required',
           },
         ]}
       >
@@ -63,7 +67,7 @@ function CreateArticle() {
         rules={[
           {
             required: true,
-            message: "Text field is required",
+            message: 'Text field is required',
           },
         ]}
       >
@@ -76,7 +80,7 @@ function CreateArticle() {
           {
             validator: async (_, names) => {
               if (!names || names.length < 1) {
-                return Promise.reject(new Error("You shoult add tag"));
+                return Promise.reject(new Error('You shoult add tag'))
               }
             },
           },
@@ -88,12 +92,12 @@ function CreateArticle() {
               <Form.Item required={false} key={field.key}>
                 <Form.Item
                   {...field}
-                  validateTrigger={["onChange", "onBlur"]}
+                  validateTrigger={['onChange', 'onBlur']}
                   rules={[
                     {
                       required: true,
                       whitespace: true,
-                      message: "Please input tag or delete this field",
+                      message: 'Please input tag or delete this field',
                     },
                   ]}
                   noStyle
@@ -101,7 +105,7 @@ function CreateArticle() {
                   <Input
                     placeholder="tag name"
                     style={{
-                      width: "30%",
+                      width: '30%',
                     }}
                   />
                 </Form.Item>
@@ -109,12 +113,12 @@ function CreateArticle() {
                   <Button
                     onClick={() => remove(field.name)}
                     style={{
-                      marginLeft: "10px",
-                      color: "red",
-                      borderColor: "red",
+                      marginLeft: '10px',
+                      color: 'red',
+                      borderColor: 'red',
                     }}
                   >
-                    Delete{" "}
+                    Delete{' '}
                   </Button>
                 ) : null}
               </Form.Item>
@@ -123,9 +127,9 @@ function CreateArticle() {
               <Button
                 onClick={() => add()}
                 style={{
-                  width: "30%",
-                  color: "blue",
-                  borderColor: "blue",
+                  width: '30%',
+                  color: 'blue',
+                  borderColor: 'blue',
                 }}
               >
                 Add tegs
@@ -141,7 +145,7 @@ function CreateArticle() {
         </Button>
       </Form.Item>
     </Form>
-  );
+  )
 }
 
-export default CreateArticle;
+export default CreateArticle

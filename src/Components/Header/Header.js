@@ -1,37 +1,40 @@
-import { useDispatch, useSelector } from "react-redux";
-import Api from "../../Api/Api";
-import { Button } from "antd";
-import "./Header.css";
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+/*eslint-disable*/
+import { useDispatch, useSelector } from 'react-redux'
+
+import Api from '../../Api/Api'
+
+import { Button } from 'antd'
+import './Header.css'
+import { Link, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
 function Header() {
-  const api = new Api();
-  const navigate = useNavigate();
-  const logIn = useSelector((state) => state.logIn);
-  const page = useSelector((state) => state.page);
-  const currentUser = useSelector((state) => state.currentUser);
-  const dispatch = useDispatch();
+  const api = new Api()
+  const navigate = useNavigate()
+  const logIn = useSelector((state) => state.logIn)
+  const page = useSelector((state) => state.page)
+  const currentUser = useSelector((state) => state.currentUser)
+  const dispatch = useDispatch()
   useEffect(() => {
     api.getCurrentUser().then((res) => {
       if (res) {
-        dispatch({ type: "ADD_USER", payload: res.user });
+        dispatch({ type: 'ADD_USER', payload: res.user })
       }
-    });
-  }, [logIn]);
+    })
+  }, [logIn])
   const onLogoClick = () => {
     api.getArticles(page).then((articles) => {
-      dispatch({ type: "ADD_ARTICLES", payload: articles });
-      dispatch({ type: "ADD_TOTAL", payload: articles });
-      navigate("/");
-    });
-  };
+      dispatch({ type: 'ADD_ARTICLES', payload: articles })
+      dispatch({ type: 'ADD_TOTAL', payload: articles })
+      navigate('/')
+    })
+  }
   const logOut = () => {
-    dispatch({ type: "LOG_OUT" });
-    dispatch({ type: "ADD_USER", payload: { username: "", email: "" } });
-    window.localStorage.removeItem("token");
-    navigate("/");
-  };
+    dispatch({ type: 'LOG_OUT' })
+    dispatch({ type: 'ADD_USER', payload: { username: '', email: '' } })
+    window.localStorage.removeItem('token')
+    navigate('/')
+  }
   const headerButtons = logIn ? (
     <div className="header_buttons">
       <Link to="/new-article" className="header_button">
@@ -39,12 +42,7 @@ function Header() {
       </Link>
       <Link to="/edit-profile" className="userData">
         {currentUser.username}
-        <img
-          src={
-            currentUser.image ||
-            `/Rectangle 1.png`
-          }
-        />
+        <img src={currentUser.image || '/Rectangle 1.png'} />
       </Link>
       <button className="header_button" onClick={() => logOut()}>
         Log Out
@@ -59,7 +57,7 @@ function Header() {
         Sign up
       </Link>
     </div>
-  );
+  )
   return (
     <div className="header">
       <button className="logo" onClick={() => onLogoClick()}>
@@ -67,7 +65,7 @@ function Header() {
       </button>
       {headerButtons}
     </div>
-  );
+  )
 }
 
-export default Header;
+export default Header

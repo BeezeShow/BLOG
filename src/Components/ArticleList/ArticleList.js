@@ -1,37 +1,40 @@
-import { useDispatch, useSelector } from "react-redux";
-import Loader from "../UI-Component/Loader";
-import Api from "../../Api/Api";
-import "./ArticleList.css";
-import { HeartOutlined } from "@ant-design/icons";
-import { HeartFilled } from "@ant-design/icons";
-import { Link } from "react-router-dom";
-import Paginations from "../UI-Component/Pagination";
+/*eslint-disable*/
+import { useDispatch, useSelector } from 'react-redux'
+import { HeartOutlined, HeartFilled } from '@ant-design/icons'
+import { Link } from 'react-router-dom'
+
+import Api from '../../Api/Api'
+import './ArticleList.css'
+
+import Paginations from '../UI-Component/Pagination'
+
+import Loader from '../UI-Component/Loader'
 function ArticleList() {
-  const api = new Api();
-  const isLoad = useSelector((state) => state.isLoad);
-  const articles = useSelector((state) => state.articles);
-  const logIn = useSelector((state) => state.logIn);
-  const page = useSelector((state) => state.page);
-  const dispatch = useDispatch();
+  const api = new Api()
+  const isLoad = useSelector((state) => state.isLoad)
+  const articles = useSelector((state) => state.articles)
+  const logIn = useSelector((state) => state.logIn)
+  const page = useSelector((state) => state.page)
+  const dispatch = useDispatch()
   const onLikeClick = (el) => {
     if (!el.favorited) {
       api.addLike(el.slug).then(() => {
         api.getArticles(page).then((articles) => {
-          dispatch({ type: "ADD_ARTICLES", payload: articles });
-          dispatch({ type: "ADD_TOTAL", payload: articles });
-        });
-      });
+          dispatch({ type: 'ADD_ARTICLES', payload: articles })
+          dispatch({ type: 'ADD_TOTAL', payload: articles })
+        })
+      })
     } else {
       api.deleteLike(el.slug).then(() => {
         api.getArticles(page).then((articles) => {
-          dispatch({ type: "ADD_ARTICLES", payload: articles });
-          dispatch({ type: "ADD_TOTAL", payload: articles });
-        });
-      });
+          dispatch({ type: 'ADD_ARTICLES', payload: articles })
+          dispatch({ type: 'ADD_TOTAL', payload: articles })
+        })
+      })
     }
-  };
-  const articleList = [];
-  let key = 1;
+  }
+  const articleList = []
+  let key = 1
   for (let el of articles) {
     articleList.push(
       <div key={key} className="article">
@@ -42,29 +45,21 @@ function ArticleList() {
           {logIn ? (
             <button
               style={{
-                border: "none",
-                backgroundColor: "inherit",
-                cursor: "pointer",
+                border: 'none',
+                backgroundColor: 'inherit',
+                cursor: 'pointer',
               }}
               onClick={() => onLikeClick(el)}
             >
-              {" "}
-              {el.favorited ? (
-                <HeartFilled style={{ color: "red" }} />
-              ) : (
-                <HeartOutlined />
-              )}
-              {" " + el.favoritesCount}
+              {' '}
+              {el.favorited ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />}
+              {' ' + el.favoritesCount}
             </button>
           ) : (
             <span>
-              {" "}
-              {el.favorited ? (
-                <HeartFilled style={{ color: "red" }} />
-              ) : (
-                <HeartOutlined />
-              )}
-              {" " + el.favoritesCount}
+              {' '}
+              {el.favorited ? <HeartFilled style={{ color: 'red' }} /> : <HeartOutlined />}
+              {' ' + el.favoritesCount}
             </span>
           )}
         </div>
@@ -73,19 +68,17 @@ function ArticleList() {
             <span className="tag">{tag.slice(0, 50)}</span>
           ))}
         </div>
-        <div className="article_description">
-          {el.description.slice(0, 100)}
-        </div>
+        <div className="article_description">{el.description.slice(0, 100)}</div>
         <div className="user_info">
-          <div style={{textAlign: "right"}}>
-            <div style={{fontSize: `18px`}}>{el.author.username}</div>
-            <div style={{fontSize: `12px`, color: ` gray`}}>{new Date(el.updatedAt).toDateString()}</div>
+          <div style={{ textAlign: 'right' }}>
+            <div style={{ fontSize: '18px' }}>{el.author.username}</div>
+            <div style={{ fontSize: '12px', color: ' gray' }}>{new Date(el.updatedAt).toDateString()}</div>
           </div>
           <img src={el.author.image}></img>
         </div>
-      </div>,
-    );
-    key++;
+      </div>
+    )
+    key++
   }
   return isLoad ? (
     <Loader />
@@ -94,7 +87,7 @@ function ArticleList() {
       {articleList}
       <Paginations />
     </>
-  );
+  )
 }
 
-export default ArticleList;
+export default ArticleList

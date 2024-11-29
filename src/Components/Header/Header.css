@@ -10,7 +10,6 @@
   display: flex;
   align-items: center;
   gap: 20px;
-
 }
 
 .header_button {
@@ -32,13 +31,13 @@
 }
 
 .header_button:hover {
-  color: #52C41A;
-  border: solid #52C41A 1px;
+  color: #52c41a;
+  border: solid #52c41a 1px;
   border-radius: 5px;
 }
 
 .logo:hover {
-  color: #52C41A;
+  color: #52c41a;
 }
 
 .logo {
@@ -55,5 +54,5 @@
   gap: 5px;
   text-decoration: none;
   font-size: 18px;
-  color: black ;
+  color: black;
 }

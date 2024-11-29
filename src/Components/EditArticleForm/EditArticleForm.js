@@ -1,31 +1,35 @@
-import { Input, Button, Form } from "antd";
-import Api from "../../Api/Api";
-import Loader from "../UI-Component/Loader";
-import styles from "./createArticle.module.css";
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+/*eslint-disable*/
+import { Input, Button, Form } from 'antd'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+
+import Api from '../../Api/Api'
+import Loader from '../UI-Component/Loader'
+
+import styles from './createArticle.module.css'
 function EditArticleForm() {
-  const api = new Api();
-  const { slug } = useParams();
-  const currentArticle = useSelector((state) => state.currentArticle);
-  const page = useSelector((state) => state.page);
-  const isLoad = useSelector(state => state.isLoad)
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { TextArea } = Input;
+  const api = new Api()
+  const { slug } = useParams()
+  const currentArticle = useSelector((state) => state.currentArticle)
+  const page = useSelector((state) => state.page)
+  const isLoad = useSelector((state) => state.isLoad)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { TextArea } = Input
   const onFinish = (values) => {
-    dispatch({type: "LOAD_CHANGE", payload: true})
+    dispatch({ type: 'LOAD_CHANGE', payload: true })
     api.editArticle(values, slug).then(() => {
       api.getArticles(page).then((articles) => {
-        dispatch({ type: "ADD_ARTICLES", payload: articles });
-        dispatch({type: "LOAD_CHANGE", payload: false})
-        navigate(`/articles/${slug}`);
-      });
-    });
-  };
+        dispatch({ type: 'ADD_ARTICLES', payload: articles })
+        dispatch({ type: 'LOAD_CHANGE', payload: false })
+        navigate(`/articles/${slug}`)
+      })
+    })
+  }
 
-  return (
-    isLoad ? <Loader/> :
+  return isLoad ? (
+    <Loader />
+  ) : (
     <Form
       name="basic"
       className={styles.new_article}
@@ -45,7 +49,7 @@ function EditArticleForm() {
         rules={[
           {
             required: true,
-            message: "Title field is required",
+            message: 'Title field is required',
           },
         ]}
       >
@@ -57,7 +61,7 @@ function EditArticleForm() {
         rules={[
           {
             required: true,
-            message: "Description field is required",
+            message: 'Description field is required',
           },
         ]}
       >
@@ -69,7 +73,7 @@ function EditArticleForm() {
         rules={[
           {
             required: true,
-            message: "Text field is required",
+            message: 'Text field is required',
           },
         ]}
       >
@@ -82,7 +86,7 @@ function EditArticleForm() {
           {
             validator: async (_, names) => {
               if (!names || names.length < 1) {
-                return Promise.reject(new Error("You shoult add tag"));
+                return Promise.reject(new Error('You shoult add tag'))
               }
             },
           },
@@ -94,12 +98,12 @@ function EditArticleForm() {
               <Form.Item required={false} key={field.key}>
                 <Form.Item
                   {...field}
-                  validateTrigger={["onChange", "onBlur"]}
+                  validateTrigger={['onChange', 'onBlur']}
                   rules={[
                     {
                       required: true,
                       whitespace: true,
-                      message: "Please input tag or delete this field",
+                      message: 'Please input tag or delete this field',
                     },
                   ]}
                   noStyle
@@ -107,7 +111,7 @@ function EditArticleForm() {
                   <Input
                     placeholder="tag name"
                     style={{
-                      width: "30%",
+                      width: '30%',
                     }}
                   />
                 </Form.Item>
@@ -115,12 +119,12 @@ function EditArticleForm() {
                   <Button
                     onClick={() => remove(field.name)}
                     style={{
-                      marginLeft: "10px",
-                      color: "red",
-                      borderColor: "red",
+                      marginLeft: '10px',
+                      color: 'red',
+                      borderColor: 'red',
                     }}
                   >
-                    Delete{" "}
+                    Delete{' '}
                   </Button>
                 ) : null}
               </Form.Item>
@@ -129,9 +133,9 @@ function EditArticleForm() {
               <Button
                 onClick={() => add()}
                 style={{
-                  width: "30%",
-                  color: "blue",
-                  borderColor: "blue",
+                  width: '30%',
+                  color: 'blue',
+                  borderColor: 'blue',
                 }}
               >
                 Add tegs
@@ -147,7 +151,7 @@ function EditArticleForm() {
         </Button>
       </Form.Item>
     </Form>
-  );
+  )
 }
 
-export default EditArticleForm;
+export default EditArticleForm

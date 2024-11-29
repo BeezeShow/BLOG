@@ -1,7 +1,7 @@
-import React from 'react';
-import { Button, Popconfirm } from 'antd';
+import React from 'react'
+import { Button, Popconfirm } from 'antd'
 
-const DeleteArticleButton = ({onDeleteClick, slug}) => (
+const DeleteArticleButton = ({ onDeleteClick, slug }) => (
   <Popconfirm
     title="Delete the article"
     description="Are you sure to delete this article?"
@@ -11,5 +11,5 @@ const DeleteArticleButton = ({onDeleteClick, slug}) => (
   >
     <Button danger>Delete</Button>
   </Popconfirm>
-);
-export default DeleteArticleButton;
+)
+export default DeleteArticleButton
